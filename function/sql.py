@@ -40,62 +40,63 @@ scroll()            --游标滚动
 
 '''
 
-path_sys = os.path.abspath(os.path.dirname(__file__))
-#os.path.dirname(path_sys)
-def get_conn(path=path_sys + "/../data/water_sensing.db"):
+path_sys = os.path.abspath(os.path.dirname(sys.argv[0]))
+
+def get_conn(path="/Users/chensiye/mystuff/UI_2016.4.27/data/water_sensing.db"):
     '''连接到数据库，如果文件路径存在则连接，如果不存在，则报错'''
     if os.path.exists(path) and os.path.isfile(path):
         conn = sqlite3.connect(path)
         print('成功连接到[{}]的数据库'.format(path))
         return conn
     else:
-        print('数据库不存在，请检查路径')
-
-def insert_db_blob(table,keywords,content):
-	conn = get_conn()
-	blob = sqlite3.Binary(content)
-	""" 目的是把内容转化成blob格式，然后保存到sql中 """
-	try:
-		sqli = "INSERT INTO "+ table +" " + " ("+value+") " +\
-			"VALUES(%s);"
-		conn.execute("INSERT INTO MAP (MapId,ToUserGetRiver) VALUES(%b);"\
-					,(MapId,blob)
-		conn.commit()
-		conn.close()
-	except :
-		print ("写入数据库失败")
-		conn.close()
-def update_db():
+        print('打开错误，请检查路径')
 
 
-def insert_db_string(table,value,content,conn):
-	sqli = "INSERT INTO "+ table +" " + " ("+value+") " +\
-			"VALUES(%s);" 
-	conn.execute(sqli %content)
+def insert_db_string(content,value,table,conn):
+	sql = "INSERT INTO "+ table +" " + " ("+value+") " +\
+			"VALUES(%s)" 
+	conn.execute(sql %content)
 	conn.commit()
 
-def select_db(value,table,keywords,param,conn):
-	sql = "SELECT "+ value + " FROM "+ table + " WHERE " + keywords \
-			+" =:" + keywords
-	cursor = conn.cursor()
-	#print (sql,param)
-	select = cursor.execute(sql,param)
+def select_db(value,table,conn):
+	sql = "SELECT "+ value + " from "+ table
+	select = conn.execute(sql)
 	return select
-
+"""
+def extract_picture(cursor, picture_id):
+    sql = "SELECT PICTURE, TYPE, FILE_NAME FROM PICTURES WHERE id = :id"
+    param = {'id': picture_id}
+    cursor.execute(sql, param)
+    ablob, ext, afile = cursor.fetchone()
+    filename = afile + ext
+    with open(filename, 'wb') as output_file:
+        output_file.write(ablob)
+    return filename
 
 """
-name = os.path.join(os.path.dirname(__file__) + '../')
-print name
-get_conn()
+    
+    
 
 
+DB_NAME = 'water_sensing1.db'
+#conn = sqlite3.connect(DB_NAME)
+#conn = get_coon(DB_NAME)
+# print "Opened databas sucessfully"
+"""
 #修改数据库表
 conn.execute("update COMPANY set SALARY=30000 where ID=3")
 print "Update the table"
 conn.commit()
-
+"""
+"""
 #conn.execute("alter table WaterQuality drop PRIMARY KEY (MapId)")
 #conn.execute("update Map set ToUser='LT51190381991204BJC00_mask.jpg' where Time='19910204'")
 select = conn.execute("SELECT A, B, C, D  from WaterQuality")
-
+for row in select:
+print row
+# print row[1]
+# print row[2]
+# print row[3]
+conn.commit()
+conn.close()
 """
