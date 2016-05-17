@@ -67,3 +67,50 @@ gdal_UI
  		--- 视频录像操作.py
  	--ui #UI框架
 		---框架
+
+2016-5-16
+
+-data #存放数据
+ 	--water.db #数据库文件
+-code #存放代码
+	--controller #每个模块的头文件代码
+		--- 遥感图像模块.py
+		--- 图像分析模块.py
+		--- 水质数据模块.py
+		--- 无人机模块.py
+		--- 用户登陆模块.py
+ 	--model #子功能函数
+ 		--- 数据库操作.py
+ 		--- 遥感图像读取.py
+ 		--- pandas操作.py
+ 		--- 经纬度坐标操作.py
+ 		--- 水质数据操作.py
+ 		--- md5加密.py
+ 		--- 视频录像操作.py
+ 	--view #UI框架
+		---框架
+
+遥感图像模块.py
+	读取当前时间，回退到1991年，自动返回生成年-月的可选择列表框。
+	创建新的放大缩小图像函数，对读取的图片进行自适应缩放，输入图片路径和窗体大小，根据放大缩小按钮返回比例的image矩阵。
+	放大缩小功能绑定到滚轮
+水质数据模块.py
+	从数据库读取pandas表，index和cols显示。
+
+2016-5-17
+数据库结构：
+实体：
+	河流：RiverId，Name
+	遥感地图：MapId,Time,Path,RGBImage,RiverImage
+	观测站：ObStationId,StationLongtitude,StationLatitude
+	视频：VedioId = RiverId+Time,Time,Path
+	水质 :WaterQualityId=MapId+ObStationId,Time,WaterQuality
+	用户: UserId,Password,Authority
+关系表：
+	河流---地图：RiverId--MapId
+	地图---观测站： MapId，Time--ObStationId
+	河流---视频： RiverId，Time -- VedioId
+	观测站---水质： ObStationId--WaterQualityId
+	
+
+
