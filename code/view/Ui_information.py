@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'E:\Anaconda3\Workspace\WQA\view\information.ui'
-#
-# Created by: PyQt5 UI code generator 5.6
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QHeaderView
 
 class Ui_Information(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(285, 537)
+        #Form.resize(285, 537)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -24,6 +18,7 @@ class Ui_Information(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.tableWidget = QtWidgets.QTableWidget(Form)
         self.tableWidget.setObjectName("tableWidget")
+        
         self.tableWidget.setColumnCount(4)
         self.tableWidget.setRowCount(4)
         item = QtWidgets.QTableWidgetItem()
@@ -66,7 +61,7 @@ class Ui_Information(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-
+    '''TODO:编写一个类，接受数据库返回的数值循环显示检测站和水质'''
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "WQA_Information"))
@@ -79,23 +74,28 @@ class Ui_Information(object):
         item = self.tableWidget.verticalHeaderItem(3)
         item.setText(_translate("Form", "E"))
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("Form", "1"))
+        item.setText(_translate("Form", "叶绿素a"))
         item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("Form", "2"))
+        item.setText(_translate("Form", "CODMn"))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("Form", "3"))
+        item.setText(_translate("Form", "溶解氧"))
         item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(_translate("Form", "4"))
+        item.setText(_translate("Form", "氨氮"))
         __sortingEnabled = self.tableWidget.isSortingEnabled()
         self.tableWidget.setSortingEnabled(False)
         item = self.tableWidget.item(0, 0)
-        item.setText(_translate("Form", "q1212"))
+        item.setText(_translate("Form", "13.65"))
+        '''文字居中显示'''
+        item.setTextAlignment(QtCore.Qt.AlignHCenter |  QtCore.Qt.AlignVCenter)
         item = self.tableWidget.item(0, 1)
-        item.setText(_translate("Form", "121212"))
+        item.setText(_translate("Form", "5.55"))
+        item.setTextAlignment(QtCore.Qt.AlignHCenter |  QtCore.Qt.AlignVCenter)
         item = self.tableWidget.item(0, 2)
-        item.setText(_translate("Form", "121"))
+        item.setText(_translate("Form", "0.8"))
+        item.setTextAlignment(QtCore.Qt.AlignHCenter |  QtCore.Qt.AlignVCenter)
         item = self.tableWidget.item(0, 3)
-        item.setText(_translate("Form", "2121"))
+        item.setText(_translate("Form", "0.64"))
+        item.setTextAlignment(QtCore.Qt.AlignHCenter |  QtCore.Qt.AlignVCenter)
         self.tableWidget.setSortingEnabled(__sortingEnabled)
 
 

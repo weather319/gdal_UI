@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget, QHBoxLayout,QLabel, QApplication) 
+from PyQt5.QtWidgets import QWidget, QHBoxLayout,QLabel, QApplication
 from PyQt5.QtGui import QPixmap,QImage,QPainter
 import sys
 sys.path.append("..")
@@ -24,21 +24,23 @@ class historywindow(QWidget):
         print (image_path)
         self.Image = QImage()
         self.Image.load(image_path)
+        #self.Image.load(r'/Users/chensiye/zhizi.jpg')
         if self.Image == None:
             print ("图像读取错误")
             sys.exit()
         else:
-            height = self.size().height()
-            width = self.size().width()
+            self.UI.widget.resize(800,600)
+            height = self.UI.widget.size().height()
+            width = self.UI.widget.size().width()
             pixmap = QPixmap.fromImage(self.Image.scaledToHeight(height))
             '''TODO: 修改图像分辨率为适应值'''
-            self.UI.label_4.setPixmap(pixmap)
+            self.imagelabel = QLabel(self.UI.widget)
+            self.imagelabel.setPixmap(pixmap)
             pix_x = pixmap.size().width()
             pix_y = pixmap.size().height()
             x = int((width - pix_x)/2)
             print (width,height,pix_x,pix_y,x)
-            self.UI.label_4.move(x,0)
-
+            self.imagelabel.move(x,0)
 
         
 	
