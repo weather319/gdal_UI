@@ -76,6 +76,7 @@ class Ui_History(object):
         '''图片查看按钮样式'''
         self.label_4 = QtWidgets.QLabel(Form)
         self.label_4.setObjectName("label_4")
+        self.label_4.setScaledContents(True) #是否根据大小自动调节内容的大小，默认False
         self.gridLayout.addWidget(self.label_4, 1, 0, 1, 10)
 
         '''放大按钮'''

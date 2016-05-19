@@ -14,6 +14,7 @@ class mainwindow(QtWidgets.QMainWindow):
         super(mainwindow,self).__init__()
         self.UI=Ui_MainWindow()
         self.UI.setupUi(self)
+        
         '''
         self.setAutoFillBackground(True) # 设置背景颜色
         self.setStyleSheet("background-color:black;")
@@ -31,5 +32,7 @@ def main():
      app = QtWidgets.QApplication(sys.argv)
      main = mainwindow()
      app.setQuitOnLastWindowClosed(True)
-     main.showMaximized()
+     #main.showMaximized()
+     main.setWindowState(QtCore.Qt.WindowMaximized)
+     main.show()
      sys.exit(app.exec_())
