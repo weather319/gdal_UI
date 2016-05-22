@@ -4,6 +4,7 @@ import os
 import pandas.io.sql as pd_sql
 import pandas as pd
 import sqlite3
+import ast
 
 '''导入自定义功能'''
 
@@ -74,7 +75,12 @@ class gdal_sqlite(object):
 		conn = self.get_conn()
 		water_frame = pd_sql.read_sql(sql,conn)
 		conn.close()
-		return water_frame
+		dicts = {}
+		for i in range(len(water_frame.values)):
+			dicts[water_frame["StationId"][i]] = ast.literal_eval(water_frame["WaterQualityInfo"][i])
+		water_frame_resut = pd.DataFrame(dicts).T
+		return water_frame_resut
+
 	'''获取RiverId，返回录像列表'''
 	'''FROM (表1 INNER JOIN 表2 ON 表1.字段号=表2.字段号)'''
 	def Read_VedioList(self,RiverId,StartTime,EndTime):

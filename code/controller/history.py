@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-#from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget, QHBoxLayout,QLabel, QApplication
 from PyQt5.QtGui import QPixmap,QImage,QPainter
 import sys
 sys.path.append("..")
 from view.Ui_history import  Ui_History
 from model.SqlGis import gdal_sqlite
-import cv2
 
 
 class historywindow(QWidget):
@@ -29,7 +27,7 @@ class historywindow(QWidget):
             print ("图像读取错误")
             sys.exit()
         else:
-            self.UI.widget.resize(800,600)
+            self.UI.widget.resize(800,650)
             height = self.UI.widget.size().height()
             width = self.UI.widget.size().width()
             pixmap = QPixmap.fromImage(self.Image.scaledToHeight(height))
@@ -40,7 +38,10 @@ class historywindow(QWidget):
             pix_y = pixmap.size().height()
             x = int((width - pix_x)/2)
             print (width,height,pix_x,pix_y,x)
-            self.imagelabel.move(x,0)
+            #print (self.UI.widget.contentsRect())
+            print (self.UI.widget.getContentsMargins())
+            #self.UI.widget.move(50,0)
+            self.imagelabel.move(10+x,0)
 
         
 	

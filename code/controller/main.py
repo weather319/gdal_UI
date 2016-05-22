@@ -14,23 +14,19 @@ class mainwindow(QtWidgets.QMainWindow):
         super(mainwindow,self).__init__()
         self.UI=Ui_MainWindow()
         self.UI.setupUi(self)
-        #self.setWindowState(QtCore.Qt.WindowMaximized)
-        '''
+        '''TODO:调整背景
         self.setAutoFillBackground(True) # 设置背景颜色
         self.setStyleSheet("background-color:black;")
         self.setBackgroundRole(QtGui.QPalette.Midlight)
         '''
         self.page = historywindow()
+        self.widget = informationwindow()
+
         self.page.setObjectName("page")
         self.UI.stackedWidget.addWidget(self.page)
-        
-        self.widget = informationwindow()
+    
         self.widget.setObjectName("widget")
         self.UI.gridLayout.addWidget(self.widget, 0, 1, 4, 1)
-        print (QtWidgets.QDesktopWidget().availableGeometry())
-        print (self.size())
-        self.page.updateGeometry()
-        print (self.page.size())
 
 def main():
      app = QtWidgets.QApplication(sys.argv)

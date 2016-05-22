@@ -128,3 +128,12 @@ gdal_UI
 	        循环内增加文字居中的代码
 	        Item.setTextAlignment(Qt.AlignHCenter |  Qt.AlignVCenter)
 
+ qtdemos 里的demo有个电子地图的样例。OPenStreetMap,Mapcatcher
+
+
+2016-5-22
+	TODO:pandas DataFrame 画折线图、曲线图。
+
+
+
+
