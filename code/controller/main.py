@@ -12,11 +12,11 @@ from controller.information import informationwindow
 class mainwindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(mainwindow,self).__init__()
-        '''TODO：UI文件构建qt的布局。
+        '''TODO：view文件构建qt的布局。
         contro函数中的py文件，负责构造具体内容、按钮样式、生成图片等
         所有的触发公共接口都留到main.py中，后期根据具体需求考虑多线程。 '''
-        self.UI=Ui_MainWindow()
-        self.UI.setupUi(self)
+        self.view=Ui_MainWindow()
+        self.view.setupUi(self)
         '''TODO:调整背景
         self.setAutoFillBackground(True) # 设置背景颜色
         self.setStyleSheet("background-color:black;")
@@ -26,10 +26,10 @@ class mainwindow(QtWidgets.QMainWindow):
         self.widget = informationwindow()
 
         self.page.setObjectName("page")
-        self.UI.stackedWidget.addWidget(self.page)
+        self.view.stackedWidget.addWidget(self.page)
     
         self.widget.setObjectName("widget")
-        self.UI.gridLayout.addWidget(self.widget, 0, 1, 4, 1)
+        self.view.gridLayout.addWidget(self.widget, 0, 1, 4, 1)
 
     def update_information():
         '''TODO:把history.py的函数调用中的数据接口部分放到main中，

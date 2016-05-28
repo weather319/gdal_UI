@@ -22,7 +22,7 @@ import ast
 '''
 class gdal_sqlite(object):
 	def __init__(self):
-		sql_path = os.path.abspath(os.path.dirname(__file__)) + "/../data/water_sensing.db"
+		self.sql_path = os.path.abspath(os.path.dirname(__file__)) + "/../../data/water_sensing.db"
 
 	def change_sqlpath(self,path):
 		self.sql_path = path
@@ -36,6 +36,15 @@ class gdal_sqlite(object):
 	        return conn
 	    else:
 	        print('数据库不存在，请检查路径')
+	
+	'''获取所有的river列表'''
+	def Read_riverlist(self):
+		sql = "SELECT * FROM River"
+		conn = self.get_conn()
+		river_list = pd_sql.read_sql(sql,conn)
+		conn.close()
+		return river_list
+
 	'''读取河流ID,然后用河流ID查找”河流-遥感地图”关系表'''
 	def Read_maplist(self,RiverId):
 		sql = "SELECT MapId FROM River_Map WHERE RiverId='%s'" %RiverId
@@ -43,6 +52,7 @@ class gdal_sqlite(object):
 		map_list = pd_sql.read_sql(sql,conn)
 		conn.close()
 		return map_list
+		
 	'''获取MapId后，读取处理前遥感RGB图片和处理后河流图片'''
 	def Read_GisRGB_Map(self,MapId):
 		sql = "SELECT RGBImage FROM Map WHERE MapId='%s'" %MapId

@@ -12,36 +12,37 @@ from model.SqlGis import gdal_sqlite
 class informationwindow(QtWidgets.QWidget):
     def __init__(self):
         super(informationwindow,self).__init__()
-        self.UI=Ui_Information()
-        self.UI.setupUi(self)
-        
+        self.view=Ui_Information()
+        self.view.setupUi(self)
+        self.DT = Gis_DrawTable()
+        self.SQL = gdal_sqlite()
+        '''TODO:修改为从用户列表处选择的返回值'''
+        self.MapId = 'LT51190381991204BJC00'
+
         '''静态画布'''
         self.widget = MyStaticMplCanvas()
         self.widget.setMinimumSize(QtCore.QSize(0, 150))
         self.widget.setObjectName("widget")
-        self.UI.verticalLayout.addWidget(self.widget)
+        self.view.verticalLayout.addWidget(self.widget)
         '''动态画布'''
         self.widget_2 = MyDynamicMplCanvas()
         self.widget_2.setMinimumSize(QtCore.QSize(0, 150))
         self.widget_2.setObjectName("widget_2")
-        self.UI.verticalLayout.addWidget(self.widget_2)
+        self.view.verticalLayout.addWidget(self.widget_2)
         '''创建表格'''
         self.creat_table()
         
+    '''TODO:creat_table函数移植到main函数中'''    
     def creat_table(self):
-        self.UI.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.UI.tableWidget.resizeRowsToContents()
-        self.UI.tableWidget.setAlternatingRowColors(True)
-        '''TODO:创建一个类，该类的功能是从数据库获取水质表，
-        然后根据水质表具体内容，循环建立表格的行、列。
-        循环内增加文字居中的代码'''
-        DT = Gis_DrawTable()
-        SQL = gdal_sqlite()
-        SQL.change_sqlpath('/Users/chensiye/mystuff/gdal_UI/data/water_sensing.db')
-        '''TODO:修改为从用户列表处选择的返回值'''
-        self.MapId = 'LT51190381991204BJC00'
-        waterframe = SQL.Read_WaterQuality(self.MapId)
-        self.UI.tableWidget = DT.draw_table(waterframe,self.UI.tableWidget)
+        self.view.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.view.tableWidget.resizeRowsToContents()
+        self.view.tableWidget.setAlternatingRowColors(True)
+        '''从数据库获取水质表，根据水质表具体内容，循环建立表格的行、列。'''
+        
+        waterframe = self.SQL.Read_WaterQuality(self.MapId)
+        print (waterframe)
+        print (type(waterframe.ix[1,1]))
+        self.view.tableWidget = self.DT.draw_table(waterframe,self.view.tableWidget)
 
 
 

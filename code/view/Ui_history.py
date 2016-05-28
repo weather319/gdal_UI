@@ -37,9 +37,11 @@ class Ui_History(object):
         self.horizontalLayout_2.addWidget(self.label)
         self.comboBox = QtWidgets.QComboBox(Form)
         self.comboBox.setObjectName("comboBox")
+        '''
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
+        '''
         self.horizontalLayout_2.addWidget(self.comboBox)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
@@ -54,11 +56,13 @@ class Ui_History(object):
         '''图片列表'''
         self.treeWidget = QtWidgets.QTreeWidget(Form)
         self.treeWidget.setObjectName("treeWidget")
+
         item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget)
         item_1 = QtWidgets.QTreeWidgetItem(item_0)
         item_1 = QtWidgets.QTreeWidgetItem(item_0)
         item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget)
         self.verticalLayout_2.addWidget(self.treeWidget)
+
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem3)
         #设置左边模块比例1:12
@@ -109,9 +113,11 @@ class Ui_History(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "WQA_History"))
         self.label.setText(_translate("Form", "水体："))
+        '''
         self.comboBox.setItemText(0, _translate("Form", "太湖"))
         self.comboBox.setItemText(1, _translate("Form", "item2"))
         self.comboBox.setItemText(2, _translate("Form", "item3"))
+        '''
         self.treeWidget.headerItem().setText(0, _translate("Form", "图片列表"))
         __sortingEnabled = self.treeWidget.isSortingEnabled()
         self.treeWidget.setSortingEnabled(False)
@@ -120,6 +126,7 @@ class Ui_History(object):
         self.treeWidget.topLevelItem(0).child(1).setText(0, _translate("Form", "编号"))
         self.treeWidget.topLevelItem(1).setText(0, _translate("Form", "1992"))
         self.treeWidget.setSortingEnabled(__sortingEnabled)
+
         self.pushButton.setText(_translate("Form", "+"))
         self.pushButton_2.setText(_translate("Form", "-"))
 

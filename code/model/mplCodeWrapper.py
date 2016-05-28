@@ -10,7 +10,10 @@ from numpy import arange, sin, pi
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-
+'''
+reload(sys)
+sys.setdefaultencoding('utf-8')
+'''
 class MyMplCanvas(FigureCanvas):
     """这是一个窗口部件，即QWidget（当然也是FigureCanvasAgg）"""
     def __init__(self, parent=None, width=5, height=4, dpi=100):
