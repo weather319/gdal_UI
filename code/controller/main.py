@@ -7,6 +7,8 @@ sys.path.append("..")
 from view.Ui_main import Ui_MainWindow
 from controller.history import historywindow
 from controller.information import informationwindow
+from controller.analysis import analysiswindow
+from controller.player import Player
 
 
 class mainwindow(QtWidgets.QMainWindow):
@@ -23,6 +25,14 @@ class mainwindow(QtWidgets.QMainWindow):
         self.page = historywindow()
         self.page.setObjectName("page")
         self.UI.stackedWidget.addWidget(self.page)
+		
+		self.page_2 = analysiswindow()
+        self.page_2.setObjectName("page_2")
+        self.UI.stackedWidget.addWidget(self.page_2)
+		
+		self.page_3 = Player(sys.argv[1:])
+        self.page_3.setObjectName("page_3")
+        self.UI.stackedWidget.addWidget(self.page_3)
         
         self.widget = informationwindow()
         self.widget.setObjectName("widget")

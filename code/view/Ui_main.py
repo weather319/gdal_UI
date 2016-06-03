@@ -104,8 +104,22 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_2.menuAction())
 
         self.retranslateUi(MainWindow)
+        
+        '''按钮触发'''
+        self.pushButton.clicked.connect(self.changed_1)
+        self.pushButton_2.clicked.connect(self.changed_2)
+        self.pushButton_3.clicked.connect(self.changed_3)
+        
         self.action_2.triggered.connect(MainWindow.hide)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+    
+    '''按钮触发对应函数'''	
+    def changed_1(self):
+        self.stackedWidget.setCurrentIndex(0)
+    def changed_2(self):
+        self.stackedWidget.setCurrentIndex(1)
+    def changed_3(self):
+        self.stackedWidget.setCurrentIndex(2)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
