@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
 import random
-
-import matplotlib
-matplotlib.use("Qt5Agg")
-
+import seaborn as sns
+import pandas as pd
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, QVBoxLayout, QSizePolicy, QMessageBox, QWidget
 
@@ -19,11 +17,10 @@ class MyMplCanvas(FigureCanvas):
         fig = Figure(figsize=(width, height), dpi=dpi)
         self.axes = fig.add_subplot(111)
         # 每次plot()调用的时候，我们希望原来的坐标轴被清除(所以False)
+        sns.set_style("darkgrid")
         self.axes.hold(False)
-
+        
         self.compute_initial_figure()
-
-        #
         FigureCanvas.__init__(self, fig)
         self.setParent(parent)
 
@@ -115,7 +112,6 @@ class ApplicationWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-
     aw = ApplicationWindow()
     aw.setWindowTitle("PyQt5 与 Matplotlib 例子")
     aw.show()
