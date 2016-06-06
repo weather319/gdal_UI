@@ -3,7 +3,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QHeaderView
 import sys
-import pandas as pd
 
 
 ''''''

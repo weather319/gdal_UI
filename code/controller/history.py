@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-from PyQt5.QtWidgets import QWidget, QHBoxLayout,QLabel, QApplication
+from PyQt5.QtWidgets import QWidget, QHBoxLayout,QLabel, QApplication,QMessageBox
 from PyQt5.QtGui import QPixmap,QImage,QPainter
 import sys
 sys.path.append("..")
 from view.Ui_history import  Ui_History
 from model.SqlGis import gdal_sqlite
+from model.DrawTree import Gis_DrawTree
 
 
 class historywindow(QWidget):
@@ -19,19 +20,36 @@ class historywindow(QWidget):
         self.show_riverlist()
         self.show_maplist()
         self.show_image()
+        self.view.treeWidget.clicked.connect(self.getCurrentIndex)
+        
+
+    def getCurrentIndex(self):
+        text = self.view.treeWidget.currentItem().text(1)
+        if text != None:
+            print (text)
+        QMessageBox.warning(None, "treeview select",  
+                                  str(text))     
+        
 
         '''TODO:self.model'''
     def updata_mapid(self,MapId):
         self.MapId = MapId
 
+    def updata_riverid(self):
+        """用户点击选择河流，返回河流ID"""
+        self.riverid = "TH"
+        
+
     def get_imagepath(self):
         self.image_path = self.SQL.Read_River_Map(self.MapId)
     
     def get_riverlist(self):
+        self.updata_riverid()
         self.riverlist = self.SQL.Read_riverlist()
 
     def get_maplist(self):
-        self.maplist = self.SQL.Read_maplist()
+        self.maplist = self.SQL.Read_maplist(self.riverid)
+        print (self.maplist)
 
     def show_riverlist(self):
         self.get_riverlist()
@@ -41,7 +59,10 @@ class historywindow(QWidget):
         
 
     def show_maplist(self):
-        
+        self.riverid = 'TH'
+        DT = Gis_DrawTree()
+        self.get_maplist()
+        self.view.treeWidget = DT.draw_tree(self.maplist,self.view.treeWidget)
         pass
 
 
