@@ -1,11 +1,4 @@
 # -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'E:\Anaconda3\Workspace\WQA\UI\main.ui'
-#
-# Created by: PyQt5 UI code generator 5.6
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
@@ -32,12 +25,7 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName("gridLayout")
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
         self.stackedWidget.setObjectName("stackedWidget")
-#        self.page = QtWidgets.QWidget()
-#        self.page.setObjectName("page")
-#        self.stackedWidget.addWidget(self.page)
-#        self.page_2 = QtWidgets.QWidget()
-#        self.page_2.setObjectName("page_2")
-#        self.stackedWidget.addWidget(self.page_2)
+
         self.gridLayout.addWidget(self.stackedWidget, 3, 0, 1, 1)
         self.widget = QtWidgets.QWidget(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
