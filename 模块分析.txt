@@ -149,3 +149,8 @@ gdal_UI
 
 	ax = sns.barplot(x='CODMn',y='叶绿素',hue='StationId',data=frame,palette="Blues_d")
 
+
+
+
+2016-6-24
+太湖modis高光谱数据。glovis   python与IDL

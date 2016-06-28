@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_History(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(632, 482)
+        Form.resize(1920, 1080)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -56,12 +56,6 @@ class Ui_History(object):
         '''图片列表'''
         self.treeWidget = QtWidgets.QTreeWidget(Form)
         self.treeWidget.setObjectName("treeWidget")
-        '''
-        item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget)
-        item_1 = QtWidgets.QTreeWidgetItem(item_0)
-        item_1 = QtWidgets.QTreeWidgetItem(item_0)
-        item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget)
-        '''
         self.verticalLayout_2.addWidget(self.treeWidget)
         
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -73,12 +67,14 @@ class Ui_History(object):
         self.horizontalLayout.addLayout(self.verticalLayout_2)
         
         '''右边图片显示窗体'''
+        '''更改为graphicsView'''
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        self.widget = QtWidgets.QWidget(Form)
-        self.widget.setMinimumSize(QtCore.QSize(0, 0))
-        self.widget.setObjectName("widget")
-        self.verticalLayout.addWidget(self.widget)
+
+        self.graphicsView = QtWidgets.QGraphicsView(Form)
+        self.graphicsView.setObjectName("graphicsView")
+
+        self.verticalLayout.addWidget(self.graphicsView)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         
@@ -114,26 +110,34 @@ class Ui_History(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "WQA_History"))
         self.label.setText(_translate("Form", "水体："))
-        '''
-        self.treeWidget.headerItem().setText(0, _translate("Form", "图片列表"))
-        __sortingEnabled = self.treeWidget.isSortingEnabled()
-        self.treeWidget.setSortingEnabled(False)
-        self.treeWidget.topLevelItem(0).setText(0, _translate("Form", "1991"))
-        self.treeWidget.topLevelItem(0).child(0).setText(0, _translate("Form", "1月"))
-        self.treeWidget.topLevelItem(0).child(1).setText(0, _translate("Form", "编号"))
-        self.treeWidget.topLevelItem(1).setText(0, _translate("Form", "1992"))
-        self.treeWidget.setSortingEnabled(__sortingEnabled)
-        '''
         self.pushButton.setText(_translate("Form", "+"))
         self.pushButton_2.setText(_translate("Form", "-"))
 
 
 if __name__ == "__main__":
+
+    def show_image():
+        from PIL import Image
+        from PIL.ImageQt import ImageQt
+        #img = Image.open(self.image_path)
+        img = Image.open('/Users/chensiye/zhizi.jpg')
+        w, h = img.size
+        imgQ = ImageQt(img)
+
+        pixMap = QtGui.QPixmap.fromImage(imgQ)
+        scene = QtWidgets.QGraphicsScene()
+        scene.addPixmap(pixMap)
+        return scene
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_History()
     ui.setupUi(Form)
+    view = ui.graphicsView
+    scene = show_image()
+    view.setScene(scene)
+    
     Form.show()
+    view.fitInView(QtCore.QRectF(0, 0, 1024, 1024), QtCore.Qt.KeepAspectRatio)
     sys.exit(app.exec_())
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from PyQt5.QtWidgets import QWidget, QHBoxLayout,QLabel, QApplication,QMessageBox
+from PyQt5.QtWidgets import QWidget, QHBoxLayout,QLabel, QApplication,QMessageBox,QGraphicsScene
 from PyQt5.QtGui import QPixmap,QImage,QPainter
+from PyQt5 import QtCore
 import sys
 sys.path.append("..")
 from view.Ui_history import  Ui_History
@@ -11,8 +12,9 @@ from model.DrawTree import Gis_DrawTree
 class historywindow(QWidget):
     def __init__(self):
         super(historywindow,self).__init__()
-        self.view=Ui_History()
-        self.view.setupUi(self)
+        self.UI=Ui_History()
+        self.UI.setupUi(self)
+        self.show()
         self.SQL = gdal_sqlite() 
         self.MapId = 'LT51190381991204BJC00'  # TODO:修改为从用户列表处选择的返回值
 
@@ -20,11 +22,11 @@ class historywindow(QWidget):
         self.show_riverlist()
         self.show_maplist()
         self.show_image()
-        self.view.treeWidget.clicked.connect(self.getCurrentIndex)
+        self.UI.treeWidget.clicked.connect(self.getCurrentIndex)
         
 
     def getCurrentIndex(self):
-        text = self.view.treeWidget.currentItem().text(1)
+        text = self.UI.treeWidget.currentItem().text(1)
         if text != None:
             print (text)
         QMessageBox.warning(None, "treeview select",  
@@ -54,15 +56,15 @@ class historywindow(QWidget):
     def show_riverlist(self):
         self.get_riverlist()
         for i in range(len(self.riverlist.index)):
-            self.view.comboBox.addItem("")
-            self.view.comboBox.setItemText(i, self.riverlist.RiverName[i]) 
+            self.UI.comboBox.addItem("")
+            self.UI.comboBox.setItemText(i, self.riverlist.RiverName[i]) 
         
 
     def show_maplist(self):
         self.riverid = 'TH'
         DT = Gis_DrawTree()
         self.get_maplist()
-        self.view.treeWidget = DT.draw_tree(self.maplist,self.view.treeWidget)
+        self.UI.treeWidget = DT.draw_tree(self.maplist,self.UI.treeWidget)
         pass
 
 
@@ -74,25 +76,46 @@ class historywindow(QWidget):
             print ("图像读取错误")
             sys.exit()
         else:
-            self.view.widget.resize(800,650)
-            height = self.view.widget.size().height()
-            width = self.view.widget.size().width()
+            from PIL import Image
+            from PIL.ImageQt import ImageQt
+            #img = Image.open(self.image_path)
+            img = Image.open('/Users/chensiye/zhizi.jpg')
+            w, h = img.size
+            print (w,h)
+            imgQ = ImageQt(img)
+
+            pixMap = QPixmap.fromImage(imgQ)
+            self.scene = QGraphicsScene()
+            self.scene.addPixmap(pixMap)
+            #self.scene.setSceneRect(0, 0, 1, 1)
+            view = self.UI.graphicsView
+            view.setScene(self.scene)
+            view.setSceneRect(0,0,w,h)
+            #view.resize(1000,1000)
+            #print (view.size())
+            view.fitInView(QtCore.QRectF(0, 0, w, h), QtCore.Qt.KeepAspectRatio)
+           
+            """
+            self.UI.widget.resize(800,650)
+            height = self.UI.widget.size().height()
+            width = self.UI.widget.size().width()
             pixmap = QPixmap.fromImage(self.Image.scaledToHeight(height))
             '''TODO: 修改图像分辨率为适应值'''
-            self.imagelabel = QLabel(self.view.widget)
+            self.imagelabel = QLabel(self.UI.widget)
             self.imagelabel.setPixmap(pixmap)
             pix_x = pixmap.size().width()
             pix_y = pixmap.size().height()
             x = int((width - pix_x)/2)
             print (width,height,pix_x,pix_y,x)
-            print (self.view.widget.getContentsMargins())
+            print (self.UI.widget.getContentsMargins())
             self.imagelabel.move(10+x,0)
+            """
     
 
 	
 if __name__ == "__main__":
-     app = QApplication(sys.argv)
-     history = historywindow()
-     app.setQuitOnLastWindowClosed(True)
-     history.show()
-     sys.exit(app.exec_())
+    app = QApplication(sys.argv)
+    history = historywindow()
+    app.setQuitOnLastWindowClosed(True)
+    history.show()
+    sys.exit(app.exec_())
