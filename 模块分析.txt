@@ -153,4 +153,9 @@ gdal_UI
 
 
 2016-6-24
-太湖modis高光谱数据。glovis   python与IDL
+太湖modis高光谱数据。glovis   python与IDL。OpenGL 进行 3D 建模
+
+
+
+2016-9-13
+水质分级，查询图像和水质参数（叶绿素）现有的公式关系。美国研究的结论。HTM模型，J.Howkins。
